@@ -1,0 +1,88 @@
+{% extends 'Users/master.html' %} 
+
+{% block maincontent %} 
+<header class="masthead" style="background-image:url('/static/assets/img/post-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-12 col-lg-8 col-xl-12 text-dark ">
+                     {% for object in res %}
+                        <div class="post-heading">
+                               Scroll Down For Discussion
+                            <h3>{{ object.Topic }}</h3>
+                            <h4 class="subheading">{{ object.Intro}}</h4>
+        
+                            <p>{{ object.Description }}</p>
+                            <span class="meta">
+                           
+                                <li>{{ object.createdate}}</li>
+                        {%endfor%}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+ 
+<div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                                {% if result %}
+                            {%  for data in result %}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                       
+                            <h6 class="post-title">Email =  {{data.Emailid}} </h6>
+                            <h6 class="post-subtitle">{{data.Comments}}</h6>
+                        </a>
+                        <p class="post-meta">
+                            
+                           {{ data.Createdate}}
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                       {% endfor %}
+                        {% else %}
+                          <p>Be The 1st Commentrer</p>
+                             {% endif %}
+                </div>
+            </div>
+        
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7 ">
+            
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="" method="post">
+                        {% csrf_token %}
+                         {% for object in res%}
+                                <input type="hidden" value="{{object.id}}" name="txtID" />
+                            {% endfor %}
+                                <div class="form-floating  border-top">
+                                    <input class="form-control" id="email" type="email" name="txtEmail" placeholder="Enter your email..." data-sb-validations="required,email" required/>
+                                    <label for="email">Email address</label>
+                                    <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                                    <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" id="phone" type="text" name="Comments" placeholder="Enter your Message..." data-sb-validations="required" required/>
+                                    <label for="phone">Message</label>
+                                    <div class="invalid-feedback" data-sb-feedback="phone:required">Message</div>
+                                </div>
+                               <br>
+                                <!-- Submit error message-->
+                                <!---->
+                                <!-- This is what your users will see when there is-->
+                                <!-- an error submitting the form-->
+                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                                <!-- Submit Button-->
+                                <button class="btn btn-primary text-uppercase " id="submitButton" type="submit">Send</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+ 
+{% endblock %}

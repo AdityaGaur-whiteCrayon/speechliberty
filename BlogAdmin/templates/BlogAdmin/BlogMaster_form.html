@@ -1,0 +1,15 @@
+ <li><a href="TopicCreate"> CREATE TOPIC </a></li>
+<li><a href="/BlogAdmin"> Home </a></li>
+<li><a href="CommentList">Discussion list </a></li>
+<li><a href="ContactList"> Contact us List</a></li>
+
+<form method="POST" enctype="multipart/form-data">
+
+	<!-- Security token -->
+	{% csrf_token %}
+
+	<!-- Using the formset -->
+	{{ form.as_p }}
+	
+	<input type="submit" value="Submit">
+</form>
